@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using UniRideHubBackend.Data;
+using UniRideHubBackend.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,10 +25,17 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+};
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();
