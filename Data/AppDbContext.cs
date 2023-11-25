@@ -7,5 +7,7 @@ namespace UniRideHubBackend.Data
 	{
 		public AppDbContext(DbContextOptions options) : base(options) { }
 		public DbSet<User> Users { get; set; }
-	}
+        public DbSet<Ride> Rides { get; set; }
+    }
 }
+
