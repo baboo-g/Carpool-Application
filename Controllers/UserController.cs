@@ -42,16 +42,14 @@ namespace UniRideHubBackend.Controllers
 		*/
 		
 		[HttpGet("GetUser/{id}")]
-        public async Task<ActionResult<ResponseView<UserDTO>>> GetUserProfile(int id)
-        //        public async Task<ActionResult> GetUserProfile(int id)
+        public async Task<ActionResult<ResponseView<UserProfileDTO>>> GetUserProfile(int id)
         {
 			try
 			{
                 //Console.WriteLine("checking");
              //   ResponseView<UserDTO>
-					var data = await _userService.ProfileService(id);
-               // return new ResponseView<UserDTO>("User Profile Found", "200", response);
-
+				var data = await _userService.ProfileService(id);
+                //return new ResponseView<UserDTO>("User Profile Found", "200", data);
                 return Ok(data);
 			}
 			catch (Exception ex)

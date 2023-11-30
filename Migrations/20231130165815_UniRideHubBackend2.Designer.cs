@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniRideHubBackend.Data;
 
@@ -10,9 +11,11 @@ using UniRideHubBackend.Data;
 namespace UniRideHubBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231130165815_UniRideHubBackend2")]
+    partial class UniRideHubBackend2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,32 +24,32 @@ namespace UniRideHubBackend.Migrations
 
             modelBuilder.Entity("UniRideHubBackend.Models.Ride", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Destination")
+                    b.Property<string>("destination")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("Fare")
+                    b.Property<int>("fare")
                         .HasColumnType("int");
 
-                    b.Property<string>("Mid_routes")
+                    b.Property<string>("mid_routes")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Source")
+                    b.Property<string>("source")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<int>("Total_Seats")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("timestamp")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("total_Seats")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
 
                     b.ToTable("Rides");
                 });
@@ -55,6 +58,9 @@ namespace UniRideHubBackend.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Avg_rating")
                         .HasColumnType("int");
 
                     b.Property<string>("First_name")
@@ -79,27 +85,6 @@ namespace UniRideHubBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("UniRideHubBackend.Models.User_ride", b =>
-                {
-                    b.Property<int>("User_id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Avg_rating")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Ride_id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("User_type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("User_id");
-
-                    b.ToTable("User_Rides");
                 });
 #pragma warning restore 612, 618
         }

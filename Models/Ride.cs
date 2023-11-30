@@ -5,16 +5,16 @@ namespace UniRideHubBackend.Models
     public class Ride
     {
         [Required]
-        public int id { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string source { get; set; }
+        public string Source { get; set; }
         [Required]
-        public string destination { get; set; }
-        public string mid_routes { get; set; }
+        public string Destination { get; set; }
+        public string Mid_routes { get; set; }
         [Required]
-        public int fare { get; set; }
+        public int Fare { get; set; }
         [Required]
-        public int total_Seats { get; set; }
+        public int Total_Seats { get; set; }
         [Required]
         public DateTime timestamp { get; set; }
         

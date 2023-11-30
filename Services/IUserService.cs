@@ -6,6 +6,6 @@ namespace UniRideHubBackend.Services
 {
     public interface IUserService
     {
-        Task<ResponseView<UserDTO>> ProfileService (int id);
+        Task<ResponseView<UserProfileDTO>> ProfileService (int id);
     }
 }
