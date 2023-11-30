@@ -41,7 +41,7 @@ namespace UniRideHubBackend.Controllers
 		}
 		*/
 		
-		[HttpGet("{id}")]
+		[HttpGet("GetUser/{id}")]
         public async Task<ActionResult<ResponseView<UserDTO>>> GetUserProfile(int id)
         //        public async Task<ActionResult> GetUserProfile(int id)
         {

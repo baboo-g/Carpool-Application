@@ -31,8 +31,9 @@ namespace UniRideHubBackend.Services
                 Rides_completed = profileData.Rides_completed
 
             };
+            return new ResponseView<UserDTO>(response);
 
-            return new ResponseView<UserDTO>("User Profile Found","200", response);
+//            return new ResponseView<UserDTO>("User Profile Found","200", response);
       
         }
 
