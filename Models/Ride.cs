@@ -16,8 +16,12 @@ namespace UniRideHubBackend.Models
         [Required]
         public int Total_Seats { get; set; }
         [Required]
-        public DateTime Timestamp { get; set; }
-        
+        public TimeOnly Time { get; set; }
+        [Required]
+        public DateOnly Date { get; set; }
+
+
+
     }
     
 }

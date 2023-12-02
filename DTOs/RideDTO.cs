@@ -8,6 +8,9 @@
         public string Mid_routes { get; set; }
         public int Fare { get; set; }
         public int Total_Seats { get; set; }
-        public DateTime Timestamp { get; set; }
+        /* public DateTime Timestamp { get; set; }*/
+        public TimeOnly Time { get; set; }
+      
+        public DateOnly Date { get; set; }
     }
 }

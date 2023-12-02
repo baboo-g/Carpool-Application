@@ -11,7 +11,7 @@ using UniRideHubBackend.Views;
 
 namespace UniRideHubBackend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/CreateRide")]
     [ApiController]
     public class RideController : ControllerBase
     {

@@ -26,7 +26,9 @@ namespace UniRideHubBackend.Services
                 Mid_routes = rideDTO.Mid_routes,
                 Fare = rideDTO.Fare,
                 Total_Seats = rideDTO.Total_Seats,
-                Timestamp = rideDTO.Timestamp
+                Time= rideDTO.Time,
+                Date=rideDTO.Date
+                /*Timestamp = rideDTO.Timestamp*/
             };
 
             _appDbContext.Rides.Add(ride);
@@ -41,7 +43,10 @@ namespace UniRideHubBackend.Services
                 Mid_routes = ride.Mid_routes,
                 Fare = ride.Fare,
                 Total_Seats = ride.Total_Seats,
-                Timestamp = ride.Timestamp
+                Time = rideDTO.Time,
+                Date = rideDTO.Date
+
+                /* Timestamp = ride.Timestamp*/
             };
 
             return createdRideDTO;
@@ -58,7 +63,9 @@ namespace UniRideHubBackend.Services
                 Mid_routes = ride.Mid_routes,
                 Fare = ride.Fare,
                 Total_Seats = ride.Total_Seats,
-                Timestamp = ride.Timestamp
+                Time = ride.Time,
+                Date = ride.Date
+                /*Timestamp = ride.Timestamp*/
             }).ToList();
 
             return rideDTOs;
@@ -67,40 +74,6 @@ namespace UniRideHubBackend.Services
         // Implement other methods as needed
     }
 }
-    /*      public async Task<ResponseView<List<RideDTO>>> RequestedRidesService(int id)
-          {
-              var requestedRidesData = await _appDbContext.RequestedRides.Where(r => r.Id == id).ToListAsync();
-
-              if (requestedRidesData == null)
-              {
-                  return new ResponseView<List<RideDTO>>("Bad Request", "400");
-              }
-              List<RideDTO> response = new List<RideDTO>
-              {
-                  new RideDTO
-                  {
-                      Id = requestedRidesData.Id,
-                      Source = requestedRidesData.Source,
-                      Destination = requestedRidesData.Destination,
-                      Mid_routes = requestedRidesData.Mid_routes,
-                      Total_Seats = requestedRidesData.Total_Seats,
-                      Fare = requestedRidesData.Fare,
-                      Timestamp = requestedRidesData.Timestamp
-                  }
-              };
-                          *//*
-              List response = new List <RideDTO>()
-              {
-                  Id = requestedRidesData.Id,
-                  Source = requestedRidesData.Source,
-                  Destination = requestedRidesData.Destination,
-                  Mid_routes = requestedRidesData.Mid_routes,
-                  Total_Seats = requestedRidesData.Total_Seats,
-                  Fare = requestedRidesData.Fare,
-                  Timestamp = requestedRidesData.Timestamp
-              };*//*
-              return new ResponseView<List<RideDTO>>("Requested Rides found", "200", response);
-
-          }*/
+  
 
 
