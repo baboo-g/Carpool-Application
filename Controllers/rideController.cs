@@ -17,42 +17,23 @@ namespace UniRideHubBackend.Controllers
     {
         private readonly IRidesService _ridesService;
 
-        private readonly AppDbContext _appDBContext;
-        public RideController(IRidesService ridesService,
-         AppDbContext appDBContext)
+        public RideController(IRidesService ridesService)
         {
             _ridesService = ridesService;
-            _appDBContext = appDBContext;
         }
-/*        [HttpGet("GetAll")]
-        public async Task<ActionResult<ResponseView<List <UserDTO>>>> GetRequestedRides(int id)
-        {
-            try
-            {
- 
-                var data = await _ridesService.RequestedRidesService(id);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(404, "Couldn't find rides");
-
-            }
-        }*/
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct(Ride ride)
+        public async Task<IActionResult> AddProduct(RideDTO rideDTO)
         {
-            _appDBContext.Rides.Add(ride);
-            await _appDBContext.SaveChangesAsync();
+            RideDTO createdRideDTO = await _ridesService.CreateRideAsync(rideDTO);
 
-            return Ok(ride);
+            return Ok(createdRideDTO);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-            var riders = await _appDBContext.Rides.ToListAsync();
+            var riders = await _ridesService.GetAllRidesAsync();
             return Ok(riders);
         }
     }
