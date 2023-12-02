@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient.Server;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient.Server;
 using Microsoft.EntityFrameworkCore;
 using UniRideHubBackend.Data;
 using UniRideHubBackend.DTOs;
@@ -56,7 +57,48 @@ namespace UniRideHubBackend.Services
         }
             //return new ResponseView<UserDTO>(response);
 //            return new ResponseView<UserDTO>("User Profile Found","200", response);
-      
+	    public async Task<ResponseView<UserAuthDTO>> UserAuthService(UserAuthDTO user)
+        {
+            if (user == null)
+            {
+                return new ResponseView<UserAuthDTO>("No User data", "404");
+            }
+            var authData = await _appDbContext.Users.FirstOrDefaultAsync(x => (x.Mobile == user.Mobile) && (x.Password == user.Password));
+            if (authData == null)
+            {
+                return new ResponseView<UserAuthDTO>("Invalid phone number or password", "400");
+            }
+		    return new ResponseView<UserAuthDTO>("Authenticated!", "200");
+	    }
 
+        public async Task<ResponseView<UserRegisterDTO>> UserRegisterService(UserRegisterDTO user)
+        {
+            if(user == null)
+            {
+                return new ResponseView<UserRegisterDTO>("No User data", "404");
+            }
+
+            var mobile = await _appDbContext.Users.FirstOrDefaultAsync(x => (x.Mobile == user.Mobile));
+            if(mobile != null)
+            {
+                return new ResponseView<UserRegisterDTO>("User already exists", "400");
+            }
+
+            int count = _appDbContext.Users.Count();
+
+            User newUser = new User();
+            newUser.Id = count;
+            newUser.First_name = user.First_name;
+            newUser.Last_name = user.Last_name;
+            newUser.Mobile = user.Mobile;
+            newUser.Password = user.Password;
+            newUser.Rides_completed = 0;
+
+            var result = await _appDbContext.AddAsync(newUser);
+			await _appDbContext.SaveChangesAsync();
+
+
+			return new ResponseView<UserRegisterDTO>("User Created Successfully", "200", user);
+        }
     }
 }
