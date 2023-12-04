@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniRideHubBackend.Data;
 
@@ -10,9 +11,11 @@ using UniRideHubBackend.Data;
 namespace UniRideHubBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202235614_Is_Active")]
+    partial class Is_Active
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,7 +89,7 @@ namespace UniRideHubBackend.Migrations
 
             modelBuilder.Entity("UniRideHubBackend.Models.User_ride", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("User_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -99,14 +102,11 @@ namespace UniRideHubBackend.Migrations
                     b.Property<int>("Ride_id")
                         .HasColumnType("int");
 
-                    b.Property<int>("User_id")
-                        .HasColumnType("int");
-
                     b.Property<string>("User_type")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.HasKey("User_id");
 
                     b.ToTable("User_Rides");
                 });
