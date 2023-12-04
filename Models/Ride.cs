@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,8 @@ namespace UniRideHubBackend.Models
     {
         [Required]
         public int Id { get; set; }
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
         [Required]
         public string Source { get; set; }
         [Required]

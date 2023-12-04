@@ -30,6 +30,7 @@ namespace UniRideHubBackend.Services
             Ride ride = new Ride
             {
                 Id = rideDTO.Id,
+                UserId = rideDTO.UserId,
                 Source = rideDTO.Source,
                 Destination = rideDTO.Destination,
                 Mid_routes = rideDTO.Mid_routes,
@@ -47,6 +48,7 @@ namespace UniRideHubBackend.Services
             RideDTO createdRideDTO = new RideDTO
             {
                 Id = ride.Id,
+                UserId = ride.UserId,
                 Source = ride.Source,
                 Destination = ride.Destination,
                 Mid_routes = ride.Mid_routes,
@@ -66,6 +68,7 @@ namespace UniRideHubBackend.Services
             var rideDTOs = rides.Select(ride => new RideDTO
             {
                 Id = ride.Id,
+                UserId =ride.UserId,
                 Source = ride.Source,
                 Destination = ride.Destination,
                 Mid_routes = ride.Mid_routes,
