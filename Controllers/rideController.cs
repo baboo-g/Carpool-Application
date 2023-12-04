@@ -23,7 +23,7 @@ namespace UniRideHubBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct(RideDTO rideDTO)
+        public async Task<IActionResult> AddProduct([FromForm] RideDTO rideDTO)
         {
             RideDTO createdRideDTO = await _ridesService.CreateRideAsync(rideDTO);
 

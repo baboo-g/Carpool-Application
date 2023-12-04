@@ -1,5 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http;
+
 
 namespace UniRideHubBackend.Models
 {
@@ -7,6 +11,8 @@ namespace UniRideHubBackend.Models
     {
         [Required]
         public int Id { get; set; }
+        [ForeignKey("UserId")]
+        public int UserId { get; set; }
         [Required]
         public string Source { get; set; }
         [Required]
@@ -17,12 +23,20 @@ namespace UniRideHubBackend.Models
         [Required]
         public int Total_Seats { get; set; }
         [Required]
-        public TimeOnly Time { get; set; }
+       
+        public string Time { get; set; }
+      
         [Required]
-        public DateOnly Date { get; set; }
+        
+        public string Date { get; set; }
+        [Required]
+        public string MapImageFileName { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Schema.NotMapped]
+        public IFormFile file { get; set; }
 
 
 
     }
-    
+
 }
