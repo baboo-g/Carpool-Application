@@ -5,7 +5,8 @@ namespace UniRideHubBackend.Models
 {
     public class User_ride
     {
-        [Key]
+        [Required]
+        public int Id { get; set; }
         [ForeignKey("User.Id")]
         public int User_id { get; set; } 
 
@@ -15,5 +16,7 @@ namespace UniRideHubBackend.Models
 
         public string User_type { get; set; }
         public int Avg_rating { get; set; }
+
+        public bool Is_Active {  get; set; }
     }
 }

@@ -84,6 +84,31 @@ namespace UniRideHubBackend.Services
         }
 
         // Implement other methods as needed
+        public async Task<RideDTO> GetRideById(int id)
+        {
+            var ride = await _appDbContext.Rides.FirstOrDefaultAsync(x => x.Id == id);
+            if (ride == null)
+            {
+                // If the ride with the specified ID doesn't exist, return null or throw an exception as needed
+                return null; // or throw new Exception("Ride not found");
+            }
+
+            // Convert the Ride object to a DTO
+            RideDTO rideDTO = new RideDTO
+            {
+                Id = ride.Id,
+                Source = ride.Source,
+                Destination = ride.Destination,
+                Mid_routes = ride.Mid_routes,
+                Fare = ride.Fare,
+                Total_Seats = ride.Total_Seats,
+                Time = ride.Time,
+                Date = ride.Date
+                /*Timestamp = ride.Timestamp*/
+            };
+
+            return rideDTO;
+        }
     }
 }
   

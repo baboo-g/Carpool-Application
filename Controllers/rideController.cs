@@ -11,7 +11,7 @@ using UniRideHubBackend.Views;
 
 namespace UniRideHubBackend.Controllers
 {
-    [Route("api/CreateRide")]
+    [Route("api/[controller]")]
     [ApiController]
     public class RideController : ControllerBase
     {
@@ -30,11 +30,18 @@ namespace UniRideHubBackend.Controllers
             return Ok(createdRideDTO);
         }
 
-        [HttpGet]
+        [HttpGet("Getride")]
         public async Task<IActionResult> GetAllProducts()
         {
             var riders = await _ridesService.GetAllRidesAsync();
             return Ok(riders);
+        }
+
+        [HttpGet("Getride/{id}")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var ride = await _ridesService.GetRideById(id);
+            return Ok(ride);
         }
     }
 }

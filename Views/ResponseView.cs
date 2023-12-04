@@ -9,6 +9,7 @@ namespace UniRideHubBackend.Views
         public T ResponseData { get; set; }
 
          public string StatusCode { get; set; }
+        public string Token { get; set; }
         public ResponseView(T responseData)
         {
             ResponseData = responseData;
@@ -24,6 +25,15 @@ namespace UniRideHubBackend.Views
             Message = message;
             ResponseData = responseData;
             StatusCode = statusCode;
+        }
+
+        public ResponseView(string message, string statusCode, T responseData, string token)
+        {
+            Message = message;
+            StatusCode = statusCode;
+            ResponseData = responseData;
+            Token = token;
+
         }
     }
 }
