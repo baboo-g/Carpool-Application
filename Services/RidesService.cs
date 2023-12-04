@@ -97,13 +97,15 @@ namespace UniRideHubBackend.Services
             RideDTO rideDTO = new RideDTO
             {
                 Id = ride.Id,
+                UserId = ride.UserId,
                 Source = ride.Source,
                 Destination = ride.Destination,
                 Mid_routes = ride.Mid_routes,
                 Fare = ride.Fare,
                 Total_Seats = ride.Total_Seats,
                 Time = ride.Time,
-                Date = ride.Date
+                Date = ride.Date,
+                MapImageFileName = ride.MapImageFileName
                 /*Timestamp = ride.Timestamp*/
             };
 
