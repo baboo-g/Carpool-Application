@@ -68,7 +68,8 @@ namespace UniRideHubBackend.Services
             {
                 return new ResponseView<UserAuthDTO>("Invalid phone number or password", "400");
             }
-		    return new ResponseView<UserAuthDTO>("Authenticated!", "200");
+            user.Id = authData.Id;
+		    return new ResponseView<UserAuthDTO>("Authenticated!", "200", user);
 	    }
 
         public async Task<ResponseView<UserRegisterDTO>> UserRegisterService(UserRegisterDTO user)
@@ -84,10 +85,11 @@ namespace UniRideHubBackend.Services
                 return new ResponseView<UserRegisterDTO>("User already exists", "400");
             }
 
-            int count = _appDbContext.Users.Count();
+			int newId = await _appDbContext.Users.MaxAsync(u => (int?)u.Id) ?? 0;
+            newId = newId + 1;
 
-            User newUser = new User();
-            newUser.Id = count;
+			User newUser = new User();
+            newUser.Id = newId;
             newUser.First_name = user.First_name;
             newUser.Last_name = user.Last_name;
             newUser.Mobile = user.Mobile;
@@ -95,6 +97,7 @@ namespace UniRideHubBackend.Services
             newUser.Rides_completed = 0;
 
             var result = await _appDbContext.AddAsync(newUser);
+
 			await _appDbContext.SaveChangesAsync();
 
 
