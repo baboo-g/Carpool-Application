@@ -6,6 +6,7 @@ namespace UniRideHubBackend.Models
     public class User_ride
     {
         [Required]
+        [Key]
         public int Id { get; set; }
         [ForeignKey("User.Id")]
         public int User_id { get; set; } 

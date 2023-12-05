@@ -84,7 +84,7 @@ namespace UniRideHubBackend.Services
 
             return createdRideDTO;
         }
-       
+
         public async Task<List<RideDTO>> GetAllRidesAsync()
         {
             var rides = await _appDbContext.Rides.ToListAsync();

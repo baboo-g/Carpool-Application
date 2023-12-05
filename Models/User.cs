@@ -6,7 +6,8 @@ namespace UniRideHubBackend.Models
 {
 	public class User
 	{
-		public int Id { get; set; }
+        [Required]
+        public int Id { get; set; }
 		[Required]
 		public string First_name { get; set; }
 		[Required]
