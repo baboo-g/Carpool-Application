@@ -6,6 +6,7 @@ using UniRideHubBackend.Models;
 using UniRideHubBackend.Services;
 using UniRideHubBackend.DTOs;
 using UniRideHubBackend.Views;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,7 +14,8 @@ namespace UniRideHubBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RideController : ControllerBase
+	[Authorize]
+	public class RideController : ControllerBase
     {
         private readonly IRidesService _ridesService;
 

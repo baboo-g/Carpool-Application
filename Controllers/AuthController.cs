@@ -13,6 +13,7 @@ using UniRideHubBackend.Views;
 namespace UniRideHubBackend.Controllers
 {
 	[Route("api/[controller]")]
+	[Authorize]
 	[ApiController]
 	public class AuthController : ControllerBase
 	{

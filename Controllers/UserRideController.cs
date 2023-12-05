@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniRideHubBackend.Data;
@@ -11,7 +12,8 @@ namespace UniRideHubBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserRideController : ControllerBase
+	[Authorize]
+	public class UserRideController : ControllerBase
     {
         private readonly IUserRideService _userRideService;
 
