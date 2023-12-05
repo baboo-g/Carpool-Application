@@ -111,6 +111,35 @@ namespace UniRideHubBackend.Services
 
             return rideDTO;
         }
+
+        public async Task<RideDTO> UpdateRide(int id)
+        {
+            var ride = await _appDbContext.Rides.FirstOrDefaultAsync(x => x.Id == id);
+            if (ride == null)
+            {
+                return null;
+            }
+            ride.Total_Seats -= 1;
+            RideDTO createdRideDTO = new RideDTO
+            {
+                Id = ride.Id,
+                UserId = ride.UserId,
+                Source = ride.Source,
+                Destination = ride.Destination,
+                Mid_routes = ride.Mid_routes,
+                Fare = ride.Fare,
+                Total_Seats = ride.Total_Seats,
+                Time = ride.Time,
+                Date = ride.Date,
+                MapImageFileName = ride.MapImageFileName
+            };
+            _appDbContext.Rides.Update(ride);
+            await _appDbContext.SaveChangesAsync();
+            
+
+            return createdRideDTO;
+        }
+
     }
 }
   
