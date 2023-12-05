@@ -27,5 +27,13 @@ namespace UniRideHubBackend.Controllers
             var userride = await _userRideService.GetUserRide(id);
             return Ok(userride);
         }
+
+        [HttpPost("AddUserRide")]
+        public async Task<IActionResult> AddUserRide([FromForm] UserRideDTO userride)
+        {
+            UserRideDTO createdUserRideDTO = await _userRideService.AddUserRide(userride);
+
+            return Ok(createdUserRideDTO);
+        }
     }
 }
