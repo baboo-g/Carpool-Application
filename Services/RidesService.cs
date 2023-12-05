@@ -7,6 +7,7 @@ using UniRideHubBackend.Models;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UniRideHubBackend.Services
 {
@@ -20,7 +21,7 @@ namespace UniRideHubBackend.Services
         }
         public async Task<RideDTO> CreateRideAsync([FromForm] RideDTO rideDTO)
         {
-            string path = Path.Combine(@"F:\7th semester\IPT\project\UniRideHub\src\assets\mapImage", rideDTO.MapImageFileName);
+            string path = Path.Combine(@"E:\Semester 7\IPT\Project\UniRideHub\src\assets\mapImage", rideDTO.MapImageFileName);
             using(Stream stream = new FileStream(path,FileMode.Create))
             {
                 rideDTO.file.CopyTo(stream);
@@ -41,7 +42,29 @@ namespace UniRideHubBackend.Services
                 MapImageFileName = rideDTO.MapImageFileName
             };
 
+            var avgRating = await _appDbContext.User_Rides.FirstOrDefaultAsync(x => x.User_id == rideDTO.UserId);
+            int rating = 0;
+            string userType = "";
+            if (avgRating != null)
+            {
+                rating = avgRating.Avg_rating;
+                userType = avgRating.User_type;
+            }
+            if (avgRating == null)
+            {
+                rating = 0;
+            }
+
+            User_ride userride = new User_ride
+            {
+                User_id = rideDTO.UserId,
+                Ride_id = rideDTO.Id,
+                User_type = "driver",
+                Avg_rating =  rating
+            };
+
             _appDbContext.Rides.Add(ride);
+            _appDbContext.User_Rides.Add(userride);
             await _appDbContext.SaveChangesAsync();
 
             // Convert the Ride object back to a DTO and return it
