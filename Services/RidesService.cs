@@ -20,7 +20,7 @@ namespace UniRideHubBackend.Services
         }
         public async Task<RideDTO> CreateRideAsync([FromForm] RideDTO rideDTO)
         {
-            string path = Path.Combine(@"F:\7th semester\IPT\project\UniRideHub\src\assets\mapImage", rideDTO.MapImageFileName);
+            string path = Path.Combine(@"F:\Uni\7th Semester\IPT\project\UniRideHub\src\assets\mapImage", rideDTO.MapImageFileName);
             using(Stream stream = new FileStream(path,FileMode.Create))
             {
                 rideDTO.file.CopyTo(stream);
