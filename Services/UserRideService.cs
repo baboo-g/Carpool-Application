@@ -5,6 +5,7 @@ using UniRideHubBackend.Data;
 using UniRideHubBackend.DTOs;
 using UniRideHubBackend.Models;
 using UniRideHubBackend.Views;
+using Microsoft.AspNetCore.Mvc;
 
 namespace UniRideHubBackend.Services
 {
@@ -40,5 +41,31 @@ namespace UniRideHubBackend.Services
 
             return userRideDTOs;
         }
+
+        public async Task<UserRideDTO> AddUserRide([FromForm] UserRideDTO userRideDTO)
+        {
+            User_ride userride = new User_ride
+            {
+                User_id = userRideDTO.User_id,
+                Ride_id = userRideDTO.Ride_id,
+                User_type = "rider",
+                Avg_rating = 0,
+                Is_Active = true
+            };
+
+            _context.User_Rides.Add(userride);
+            await _context.SaveChangesAsync();
+
+            UserRideDTO createdRideDTO = new UserRideDTO
+            {
+                User_id = userride.User_id,
+                Ride_id = userride.Ride_id,
+                User_type = userride.User_type,
+                Avg_rating = userride.Avg_rating,
+                Is_active = userride.Is_Active
+            };
+            return createdRideDTO;
+        }
+
     }
 }
