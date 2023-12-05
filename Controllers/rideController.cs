@@ -14,7 +14,7 @@ namespace UniRideHubBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-	[Authorize]
+
 	public class RideController : ControllerBase
     {
         private readonly IRidesService _ridesService;
@@ -25,7 +25,7 @@ namespace UniRideHubBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct([FromForm] RideDTO rideDTO)
+		public async Task<IActionResult> AddProduct([FromForm] RideDTO rideDTO)
         {
             RideDTO createdRideDTO = await _ridesService.CreateRideAsync(rideDTO);
 
@@ -33,7 +33,7 @@ namespace UniRideHubBackend.Controllers
         }
 
         [HttpGet("Getride")]
-        public async Task<IActionResult> GetAllProducts()
+		public async Task<IActionResult> GetAllProducts()
         {
             var riders = await _ridesService.GetAllRidesAsync();
             return Ok(riders);

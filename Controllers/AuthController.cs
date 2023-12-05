@@ -13,7 +13,6 @@ using UniRideHubBackend.Views;
 namespace UniRideHubBackend.Controllers
 {
 	[Route("api/[controller]")]
-	[Authorize]
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
@@ -35,7 +34,7 @@ namespace UniRideHubBackend.Controllers
 			};
 			//to be implemented: 25:34
 			var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-				_configuration.GetSection("JWT:Token").Value));
+				_configuration.GetSection("Jwt:Key").Value));
 
 			var creds =  new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -47,6 +46,7 @@ namespace UniRideHubBackend.Controllers
 			var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 			
 			return jwt;
+
 		}
 
 		[AllowAnonymous]

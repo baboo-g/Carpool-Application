@@ -12,7 +12,6 @@ namespace UniRideHubBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-	[Authorize]
 	public class UserRideController : ControllerBase
     {
         private readonly IUserRideService _userRideService;
