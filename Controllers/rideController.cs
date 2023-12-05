@@ -43,5 +43,12 @@ namespace UniRideHubBackend.Controllers
             var ride = await _ridesService.GetRideById(id);
             return Ok(ride);
         }
+
+        [HttpPut("UpdateRideSeats")]
+        public async Task<IActionResult> UpdateProduct(int id)
+        {
+            var ride = await _ridesService.UpdateRide(id);
+            return Ok(ride);
+        }
     }
 }

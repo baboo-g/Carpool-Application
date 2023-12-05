@@ -11,5 +11,7 @@ namespace UniRideHubBackend.Services
         Task<List<RideDTO>> GetAllRidesAsync();
 
         Task<RideDTO> GetRideById(int id);
+
+        Task<RideDTO> UpdateRide(int id);
     }
 }
