@@ -1,39 +1,101 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniRideHubBackend.Data;
-using UniRideHubBackend.DTOs;
 using UniRideHubBackend.Models;
-using UniRideHubBackend.Services;
-using UniRideHubBackend.Views;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace UniRideHubBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-	public class UserRideController : ControllerBase
+    public class UserRidesController : ControllerBase
     {
-        private readonly IUserRideService _userRideService;
+        private readonly AppDbContext _context;
 
-        public UserRideController(IUserRideService userRideService)
+        // Constructor to inject AppDbContext
+        public UserRidesController(AppDbContext context)
         {
-            _userRideService = userRideService;
+            _context = context;
         }
 
-        [HttpGet("GetUserRide/{id}")]
-        public async Task<IActionResult> GetUserRideById(int id)
+        // GET: api/UserRides
+        [HttpGet]
+        public async Task<IActionResult> GetUserRides()
         {
-            var userride = await _userRideService.GetUserRide(id);
-            return Ok(userride);
+            try
+            {
+                // Fetch all user rides from the database
+                var userRides = await _context.User_ride.ToListAsync();
+
+                // If no records are found
+                if (userRides == null || !userRides.Any())
+                {
+                    return NotFound("No user rides found.");
+                }
+
+                // Return the list of user rides
+                return Ok(userRides);
+            }
+            catch (System.Exception ex)
+            {
+                // Return Internal Server Error if any exception occurs
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        [HttpPost("AddUserRide")]
-        public async Task<IActionResult> AddUserRide([FromForm] UserRideDTO userride)
+        // GET: api/UserRides/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserRide(int id)
         {
-            UserRideDTO createdUserRideDTO = await _userRideService.AddUserRide(userride);
+            try
+            {
+                // Fetch a single user ride by id
+                var userRide = await _context.User_ride
+                    .FirstOrDefaultAsync(ur => ur.Id == id);
 
-            return Ok(createdUserRideDTO);
+                // If the user ride does not exist
+                if (userRide == null)
+                {
+                    return NotFound($"User ride with ID {id} not found.");
+                }
+
+                // Return the user ride
+                return Ok(userRide);
+            }
+            catch (System.Exception ex)
+            {
+                // Return Internal Server Error if any exception occurs
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // POST: api/UserRides
+        [HttpPost]
+        public async Task<IActionResult> CreateUserRide([FromBody] User_ride userRide)
+        {
+            try
+            {
+                if (userRide == null)
+                {
+                    return BadRequest("Invalid user ride data.");
+                }
+
+                // Add the new user ride to the context
+                _context.User_ride.Add(userRide);
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                // Return the created user ride with a 201 Created response
+                return CreatedAtAction(nameof(GetUserRide), new { id = userRide.Id }, userRide);
+            }
+            catch (System.Exception ex)
+            {
+                // Return Internal Server Error if any exception occurs
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace UniRideHubBackend.Services
         public async Task<ResponseView<UserProfileDTO>> ProfileService(int id)
         {
             var profileData = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
-            var avgRating = await _appDbContext.User_Rides.FirstOrDefaultAsync(x => x.User_id == id);
+            var avgRating = await _appDbContext.User_ride.FirstOrDefaultAsync(x => x.User_id == id);
 
             int rating =0;
             string userType = "";

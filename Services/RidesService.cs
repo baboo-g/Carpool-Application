@@ -42,7 +42,7 @@ namespace UniRideHubBackend.Services
                 MapImageFileName = rideDTO.MapImageFileName
             };
 
-            var avgRating = await _appDbContext.User_Rides.FirstOrDefaultAsync(x => x.User_id == rideDTO.UserId);
+            var avgRating = await _appDbContext.User_ride.FirstOrDefaultAsync(x => x.User_id == rideDTO.UserId);
             int rating = 0;
             string userType = "";
             if (avgRating != null)
@@ -64,7 +64,7 @@ namespace UniRideHubBackend.Services
             };
 
             _appDbContext.Rides.Add(ride);
-            _appDbContext.User_Rides.Add(userride);
+            _appDbContext.User_ride.Add(userride);
             await _appDbContext.SaveChangesAsync();
 
             // Convert the Ride object back to a DTO and return it

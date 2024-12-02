@@ -1,56 +1,73 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using UniRideHubBackend.Data;
 using UniRideHubBackend.Models;
-using UniRideHubBackend.Services;
-using UniRideHubBackend.DTOs;
-using UniRideHubBackend.Views;
-using Microsoft.AspNetCore.Authorization;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace UniRideHubBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
-	public class RideController : ControllerBase
+    public class RidesController : ControllerBase
     {
-        private readonly IRidesService _ridesService;
+        private readonly AppDbContext _context;
 
-        public RideController(IRidesService ridesService)
+        // Inject AppDbContext directly into the controller
+        public RidesController(AppDbContext context)
         {
-            _ridesService = ridesService;
+            _context = context;
         }
 
-        [HttpPost]
-		public async Task<IActionResult> AddProduct([FromForm] RideDTO rideDTO)
+        // GET: api/rides
+        [HttpGet]
+        public async Task<IActionResult> GetRides()
         {
-            RideDTO createdRideDTO = await _ridesService.CreateRideAsync(rideDTO);
+            try
+            {
+                // Fetch all rides from the database
+                var rides = await _context.Rides.ToListAsync();
 
-            return Ok(createdRideDTO);
+                // If no rides found, return NotFound (404)
+                if (rides == null || rides.Count == 0)
+                {
+                    return NotFound("No rides found.");
+                }
+
+                // Return the list of rides as a successful response (HTTP 200)
+                return Ok(rides);
+            }
+            catch (System.Exception ex)
+            {
+                // Return Internal Server Error if any exception occurs
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        [HttpGet("Getride")]
-		public async Task<IActionResult> GetAllProducts()
+        // GET: api/rides/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRide(int id)
         {
-            var riders = await _ridesService.GetAllRidesAsync();
-            return Ok(riders);
-        }
+            try
+            {
+                // Fetch the specific ride by ID
+                var ride = await _context.Rides.FindAsync(id);
 
-        [HttpGet("Getride/{id}")]
-        public async Task<IActionResult> GetProductById(int id)
-        {
-            var ride = await _ridesService.GetRideById(id);
-            return Ok(ride);
-        }
+                // If no ride found, return NotFound (404)
+                if (ride == null)
+                {
+                    return NotFound($"Ride with ID {id} not found.");
+                }
 
-        [HttpPut("UpdateRideSeats")]
-        public async Task<IActionResult> UpdateProduct(int id)
-        {
-            var ride = await _ridesService.UpdateRide(id);
-            return Ok(ride);
+                // Return the specific ride as a successful response (HTTP 200)
+                return Ok(ride);
+            }
+            catch (System.Exception ex)
+            {
+                // Return Internal Server Error if any exception occurs
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

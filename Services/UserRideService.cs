@@ -20,7 +20,7 @@ namespace UniRideHubBackend.Services
 
         public async Task<List<UserRideDTO>> GetUserRide(int userid)
         {
-            var userRides = await _context.User_Rides
+            var userRides = await _context.User_ride
                 .Where(ur => ur.User_id == userid) // Filter by userId
                 .ToListAsync();
             
@@ -53,7 +53,7 @@ namespace UniRideHubBackend.Services
                 Is_Active = true
             };
 
-            _context.User_Rides.Add(userride);
+            _context.User_ride.Add(userride);
             await _context.SaveChangesAsync();
 
             UserRideDTO createdRideDTO = new UserRideDTO
