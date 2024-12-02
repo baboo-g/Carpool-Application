@@ -17,6 +17,5 @@ namespace UniRideHubBackend.Models
 		[Required]
 		public string Password { get; set; }
 		public int Rides_completed { get; set; }
-//		public int Avg_rating { get; set; }
     }
 }
