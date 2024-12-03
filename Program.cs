@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using UniRideHubBackend.Data;
 using UniRideHubBackend.Controllers;
-using UniRideHubBackend.Services;
+//using UniRideHubBackend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -18,9 +18,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //servies
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IRidesService, RidesService>();
-builder.Services.AddScoped<IUserRideService, UserRideService>();
+//builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddScoped<IRidesService, RidesService>();
+//builder.Services.AddScoped<IUserRideService, UserRideService>();
 
 var connectionString = builder.Configuration.GetConnectionString("AppDbConnectionString");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
